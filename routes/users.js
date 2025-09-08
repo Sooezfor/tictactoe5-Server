@@ -16,7 +16,7 @@ router.get('/', function(req, res, next) {
 });
 
 //회원가입 기능 
-router.post('/singup',async function(req, res, next) {
+router.post('/signup',async function(req, res, next) {
   try {
     var username = req.body.username;
     var password = req.body.password;
@@ -51,7 +51,7 @@ router.post('/singup',async function(req, res, next) {
 
     res.status(201).json({result: ResponseType.SUCCESS});
   } catch(error) {
-    console.error('Error during singup:', error);
+    console.error('Error during signup:', error);
     res.status(500).json({ message: 'Internal server error.'});
   }
 });
@@ -78,7 +78,7 @@ router.post('/signin', async function(req,res,next) {
       if(compareResult) {
         //세션에 사용자 정보 저장 
         req.session.isAuthenticated = true;
-        req.session.uerId = existingUser._id.toString();
+        req.session.userId = existingUser._id.toString();
         req.session.username = existingUser.username;
         req.session.nickname = existingUser.nickname;
         res.json({result: ResponseType.SUCCESS});      
@@ -137,7 +137,7 @@ router.post('/addScore', async function(req, res,next){
         }}      
     );
     
-    if(result.matchedCOunt === 0) { //업데이트 했더니 그런 유저가 db 상에 없음 
+    if(result.matchedCount === 0) { //업데이트 했더니 그런 유저가 db 상에 없음 
       return res.status(404).json({message: 'User not found'});
     }
 
@@ -161,7 +161,7 @@ router.get('/score', async function(req, res, next) {
     var database = req.app.get('database');
     var users = database.collection('users');
 
-    const users = await users.findOne(
+    const user = await users.findOne(
       {
         _id: new ObjectId(userId) }      
     );
