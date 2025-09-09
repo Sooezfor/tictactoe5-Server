@@ -52,6 +52,13 @@ module.exports = function(server) {
 
             console.log('Player action in room:', roomId, 'Block index', blockIndex);
             socket.to(roomId).emit('doOpponent', { blockIndex: blockIndex });
-        })
+        });
+
+        // socket.on('disconnect', function(reason) {
+        //     console.log('Disconnected: ' + socket.id, 'Reason:' + reason);
+        // });
+        socket.on("disconnect", (reason) => {
+            console.log('Disconnected: '+ socket.id + 'Reson:' + reason);
+        });
     });
 };

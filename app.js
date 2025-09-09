@@ -21,7 +21,7 @@ var app = express();
 
 //세션 설정
 app.use(session({
-  secret: process.env.SESSION_SECRET || 'session-login', //세션 암호화에 사용되는 비밀 키
+  secret: process.env.SESSION_SECRET || 'session-login', //세션 암호화에 사용되는 비밀 키 
   resave: false,
   saveUninitialized: true, //세션이 필요할 때만 저장하도록 설정 
   store: new fileStore({
